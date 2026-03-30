@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:fxculturetrading.com)",
+      "WebFetch(domain:docs.google.com)",
+      "WebFetch(domain:doc-0k-4k-docstext.googleusercontent.com)",
+      "Bash(mkdir -p /c/IT/commercial/land-1/assets/reviews)",
+      "Bash(cp \"/c/Users/sasny/OneDrive/Рабочий стол/land-1/4блок_1.jpg\" /c/IT/commercial/land-1/assets/reviews/review_1.jpg)",
+      "Bash(cp \"/c/Users/sasny/OneDrive/Рабочий стол/land-1/4блок_2.jpg\" /c/IT/commercial/land-1/assets/reviews/review_2.jpg)",
+      "Bash(cp \"/c/Users/sasny/OneDrive/Рабочий стол/land-1/4блок_3.jpg\" /c/IT/commercial/land-1/assets/reviews/review_3.jpg)",
+      "Bash(cp \"/c/Users/sasny/OneDrive/Рабочий стол/land-1/4блок_4.jpg\" /c/IT/commercial/land-1/assets/reviews/review_4.jpg)",
+      "WebFetch(domain:jonnymitchell.com)",
+      "Bash(ffmpeg -encoders)",
+      "Bash(ffmpeg -i \"/c/Users/sasny/OneDrive/Рабочий стол/1блок.mov\" -c:v h264_nvenc -preset p7 -cq 18 -c:a aac -b:a 128k -movflags +faststart \"/c/IT/commercial/land-1/assets/hero-video.mp4\" -y)",
+      "Bash(ffmpeg -i \"/c/Users/sasny/OneDrive/Рабочий стол/1блок.mov\" -c:v h264_nvenc -preset p7 -cq 28 -maxrate 1500k -bufsize 3000k -vf \"scale=1280:720\" -c:a aac -b:a 96k -movflags +faststart \"/c/IT/commercial/land-1/assets/hero-video-web.mp4\" -y)",
+      "WebFetch(domain:docs.wistia.com)"
+    ]
+  }
+}

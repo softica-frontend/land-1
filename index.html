@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AntFX — Copia Mis Ideas de Trading Gratis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #0b3c10;
+      --primary-light: #14611c;
+      --primary-accent: #1a8a26;
+      --primary-bright: #22a82e;
+      --bg-white: #ffffff;
+      --bg-light: #f5f7f5;
+      --bg-gray: #eef2ee;
+      --text-dark: #1a1a1a;
+      --text-body: #444444;
+      --text-muted: #777777;
+      --border: #e0e6e0;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --radius-lg: 16px;
+      --max-width: 1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-white);
+      color: var(--text-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, h5 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+    .header__inner {
+      max-width: var(--max-width);
+      margin: 0 auto; padding: 0 20px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header__logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800; font-size: 20px;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .header__logo-icon {
+      width: 30px; height: 30px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #fff;
+    }
+    .header__nav {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .header__nav a {
+      color: var(--text-body); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .header__nav a:hover { color: var(--primary); }
+    .header__nav .nav-cta {
+      background: var(--primary); color: #fff;
+      padding: 9px 22px; border-radius: 8px;
+      font-weight: 600; font-size: 13px;
+      text-transform: uppercase; letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .header__nav .nav-cta:hover {
+      background: var(--primary-light); color: #fff;
+      transform: translateY(-1px);
+    }
+    .header__burger {
+      display: none; flex-direction: column; gap: 5px;
+      width: 26px; cursor: pointer;
+      background: none; border: none; padding: 0;
+    }
+    .header__burger span {
+      display: block; width: 100%; height: 2px;
+      background: var(--text-dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .header__burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .header__burger.active span:nth-child(2) { opacity: 0; }
+    .header__burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav {
+      display: none; position: fixed;
+      top: 60px; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      flex-direction: column; align-items: center;
+      justify-content: center; gap: 24px; z-index: 999;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      color: var(--text-dark); text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px; font-weight: 600;
+    }
+    .mobile-nav a:hover { color: var(--primary); }
+    .mobile-nav .nav-cta {
+      background: var(--primary); color: #fff;
+      padding: 14px 36px; border-radius: 8px;
+      font-size: 16px; margin-top: 8px;
+    }
+    @media (max-width: 768px) {
+      .header__nav { display: none; }
+      .header__burger { display: flex; }
+    }
+
+    /* ===== CTA BUTTON ===== */
+    .cta-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 16px;
+      letter-spacing: 0.5px;
+      padding: 16px 44px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+      border: none; cursor: pointer;
+    }
+    .cta-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    /* ===== SECTION HELPERS ===== */
+    .section-title {
+      text-align: center;
+      font-size: clamp(22px, 4.5vw, 36px);
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* ===== DECORATIVE SVG BACKGROUNDS ===== */
+    .deco { position: absolute; pointer-events: none; z-index: 0; }
+    .deco svg { width: 100%; height: 100%; }
+
+    /* ===== BLOCK 1 — HERO ===== */
+    .hero {
+      padding: 110px 0 56px;
+      text-align: center;
+      background: linear-gradient(180deg, #f0f7f1 0%, #e4f2e6 35%, #ffffff 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero .container { position: relative; z-index: 1; }
+    /* Chart line left */
+    .hero__deco-left {
+      position: absolute; left: -40px; top: 80px;
+      width: 280px; height: 200px;
+      opacity: 0.07;
+    }
+    /* Chart line right */
+    .hero__deco-right {
+      position: absolute; right: -30px; bottom: 20px;
+      width: 240px; height: 180px;
+      opacity: 0.06;
+    }
+    /* Grid dots */
+    .hero__deco-dots {
+      position: absolute; right: 60px; top: 100px;
+      width: 120px; height: 120px;
+      opacity: 0.05;
+    }
+    /* Candlestick left */
+    .hero__deco-candles {
+      position: absolute; left: 40px; bottom: 60px;
+      width: 160px; height: 140px;
+      opacity: 0.05;
+    }
+    .hero__title {
+      font-size: clamp(22px, 5vw, 38px);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 36px;
+      color: var(--text-dark);
+    }
+    .hero__title span { color: var(--primary); }
+    .hero__video-wrap {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto 36px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 16/9;
+      background: #f0f0f0;
+    }
+    .hero__video-wrap wistia-player {
+      width: 100%; height: 100%;
+      display: block;
+    }
+    wistia-player[media-id='arcsoo9xzn']:not(:defined) {
+      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/arcsoo9xzn/swatch');
+      display: block; filter: blur(5px); padding-top: 56.25%;
+    }
+    /* Hide Wistia branding */
+    .w-bottom-bar-upper .w-logo-control,
+    .wistia_badge { display: none !important; opacity: 0 !important; }
+
+    /* ===== BLOCK 2 — VIDEO TESTIMONIALS ===== */
+    .testimonials {
+      padding: 56px 0 64px;
+      background: var(--bg-light);
+    }
+    .testimonials__scroll {
+      display: flex; gap: 14px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 4px 0 14px;
+      -webkit-overflow-scrolling: touch;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: visible;
+    }
+
+    .vcard {
+      flex: 0 0 calc((100% - 42px) / 4);
+      border-radius: var(--radius); overflow: hidden;
+      position: relative; aspect-ratio: 9/16;
+      background: #e0e4e0; box-shadow: var(--shadow);
+    }
+    .vcard video, .vcard iframe {
+      width: 100%; height: 100%; object-fit: cover; border: none;
+    }
+    .vcard__top {
+      position: absolute; top: 0; left: 0; right: 0;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+      z-index: 2;
+    }
+    .vcard__name { font-weight: 600; font-size: 13px; color: #fff; }
+    .vcard__desc { font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 2px; }
+    .vcard__ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 6px;
+      background: linear-gradient(180deg, #d0d5d0, #bbb);
+    }
+    .vcard__ph svg { width: 36px; height: 36px; fill: var(--primary); opacity: 0.35; }
+    .vcard__ph span { color: var(--text-muted); font-size: 12px; }
+
+    /* Banner */
+    .banner {
+      position: relative;
+      border-radius: 24px;
+      padding: 56px 44px 52px;
+      text-align: center; color: #fff;
+      background: linear-gradient(135deg, #0a3a0f 0%, #145a1c 40%, #0f4815 100%);
+      overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute; top: -60%; right: -20%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(34,168,46,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .banner::after {
+      content: '';
+      position: absolute; bottom: -40%; left: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(34,168,46,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .banner__inner { position: relative; z-index: 1; }
+    .banner__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .banner__badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    .banner h3 {
+      color: #fff; font-size: clamp(22px, 4vw, 32px);
+      margin-bottom: 20px; line-height: 1.25;
+    }
+    .banner__stats {
+      display: flex; justify-content: center; gap: 32px;
+      margin-bottom: 28px;
+    }
+    .banner__stat {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .banner__stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px; font-weight: 800; color: #4ade80;
+      line-height: 1;
+    }
+    .banner__stat-label {
+      font-size: 12px; color: rgba(255,255,255,0.6);
+      margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .banner p {
+      color: rgba(255,255,255,0.82);
+      font-size: 15px; max-width: 560px;
+      margin: 0 auto 32px; line-height: 1.75;
+    }
+    .banner .cta-btn {
+      background: #fff; color: var(--primary);
+      font-size: 15px; padding: 16px 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .banner .cta-btn:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+    @media (max-width: 480px) {
+      .banner { padding: 40px 20px 36px; }
+      .banner__stats { gap: 20px; }
+      .banner__stat-num { font-size: 22px; }
+    }
+
+    /* ===== BLOCK 3 — COMPARISON ===== */
+    .comparison {
+      padding: 72px 0;
+      background: var(--bg-white);
+      position: relative; overflow: hidden;
+    }
+    .comparison .container { position: relative; z-index: 1; }
+    .comparison__deco {
+      position: absolute; right: 0; top: 0;
+      width: 350px; height: 280px;
+      opacity: 0.12;
+    }
+    .comparison__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    }
+    .comp-card {
+      border-radius: 20px;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .comp-card:hover { transform: translateY(-4px); }
+    .comp-card__header {
+      padding: 28px 28px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .comp-card__icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .comp-card__header h3 {
+      font-size: 19px; margin: 0; line-height: 1.3;
+    }
+    .comp-card__body {
+      padding: 0 28px 32px;
+    }
+    .comp-card__body ul {
+      list-style: none; display: flex; flex-direction: column; gap: 0;
+    }
+    .comp-card__body li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; line-height: 1.5; color: var(--text-body);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .comp-card__body li:last-child { border-bottom: none; }
+    .comp-card__body li .li-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 12px; font-weight: 700;
+    }
+
+    /* Bad card */
+    .comp-card--bad {
+      background: #fff;
+      border: 1px solid #f0d0d0;
+      box-shadow: 0 8px 32px rgba(211, 47, 47, 0.06);
+    }
+    .comp-card--bad .comp-card__header {
+      background: linear-gradient(135deg, #fef2f2, #fff5f5);
+    }
+    .comp-card--bad .comp-card__icon {
+      background: linear-gradient(135deg, #fecaca, #fca5a5);
+    }
+    .comp-card--bad .comp-card__icon svg { stroke: #dc2626; }
+    .comp-card--bad h3 { color: #b91c1c; }
+    .comp-card--bad .li-icon {
+      background: #fef2f2; color: #dc2626;
+    }
+
+    /* Good card */
+    .comp-card--good {
+      background: #fff;
+      border: 1px solid #c8e6ca;
+      box-shadow: 0 8px 32px rgba(11, 60, 16, 0.06);
+    }
+    .comp-card--good .comp-card__header {
+      background: linear-gradient(135deg, #ecfdf0, #f0faf1);
+    }
+    .comp-card--good .comp-card__icon {
+      background: linear-gradient(135deg, #86efac, #4ade80);
+    }
+    .comp-card--good .comp-card__icon svg { stroke: #fff; }
+    .comp-card--good h3 { color: var(--primary); }
+    .comp-card--good .li-icon {
+      background: #ecfdf0; color: var(--primary);
+    }
+
+    /* ===== BLOCK 4 — REVIEWS + TRADERS ===== */
+    .results {
+      padding: 64px 0;
+      background: var(--bg-light);
+    }
+    .results__sub {
+      text-align: center; color: var(--text-muted);
+      font-size: 15px; margin-bottom: 36px;
+    }
+    /* Slider wrapper */
+    .slider-wrap {
+      position: relative;
+      margin-bottom: 60px;
+    }
+    .slider-track {
+      display: flex; gap: 14px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .slider-track::-webkit-scrollbar { display: none; }
+    .rshot {
+      flex: 0 0 260px;
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: transform 0.25s;
+      background: #fff;
+    }
+    .rshot:hover { transform: translateY(-3px); }
+    .rshot img { width: 100%; height: auto; display: block; }
+
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 5;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .slider-btn:hover {
+      background: var(--primary); border-color: var(--primary);
+      box-shadow: 0 4px 20px rgba(11,60,16,0.2);
+    }
+    .slider-btn:hover svg { stroke: #fff; }
+    .slider-btn svg {
+      width: 18px; height: 18px;
+      stroke: var(--text-dark); stroke-width: 2.5;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .slider-btn--prev { left: -16px; }
+    .slider-btn--next { right: -16px; }
+    @media (max-width: 768px) {
+      .slider-btn--prev { left: 4px; }
+      .slider-btn--next { right: 4px; }
+      .slider-btn { width: 38px; height: 38px; }
+      .rshot { flex: 0 0 230px; }
+    }
+    @media (max-width: 480px) {
+      .rshot { flex: 0 0 210px; }
+    }
+
+
+    /* ===== BLOCK 5 — WHY FREE ===== */
+    .whyfree {
+      padding: 64px 0;
+      background: var(--bg-white);
+      position: relative; overflow: hidden;
+    }
+    .whyfree .container { position: relative; z-index: 1; }
+    .whyfree__deco {
+      position: absolute; right: 0; top: 10px;
+      width: 280px; height: 220px;
+      opacity: 0.12;
+    }
+    .whyfree__inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+    }
+    .whyfree__text h2 {
+      font-size: clamp(24px, 3.5vw, 34px);
+      margin-bottom: 20px;
+    }
+    .whyfree__text p {
+      font-size: 15px; line-height: 1.75;
+      margin-bottom: 14px; color: var(--text-body);
+    }
+    .whyfree__img {
+      border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-lg);
+    }
+    .whyfree__img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* ===== BLOCK 6 — FAQ ===== */
+    .faq {
+      padding: 64px 0;
+      background: var(--bg-light);
+      position: relative; overflow: hidden;
+    }
+    .faq .container { position: relative; z-index: 1; }
+    .faq__deco {
+      position: absolute; left: 0; bottom: 0;
+      width: 300px; height: 220px;
+      opacity: 0.12;
+    }
+    .faq__list {
+      max-width: 760px;
+      margin: 0 auto 44px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .faq__item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden; transition: border-color 0.3s;
+    }
+    .faq__item.active { border-color: var(--primary); }
+    .faq__q {
+      width: 100%; padding: 18px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: none; border: none;
+      color: var(--text-dark);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 15px;
+      cursor: pointer; text-align: left; gap: 14px;
+      transition: color 0.2s;
+    }
+    .faq__q:hover { color: var(--primary); }
+    .faq__icon {
+      flex-shrink: 0; width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--bg-gray);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .faq__item.active .faq__icon {
+      transform: rotate(45deg);
+      background: var(--primary);
+    }
+    .faq__icon svg {
+      width: 12px; height: 12px;
+      stroke: var(--primary); stroke-width: 2.5; fill: none;
+    }
+    .faq__item.active .faq__icon svg { stroke: #fff; }
+    .faq__a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq__item.active .faq__a { max-height: 400px; }
+    .faq__a-inner {
+      padding: 0 20px 20px;
+      color: var(--text-body); font-size: 14px; line-height: 1.7;
+    }
+    .faq__cta { text-align: center; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 44px 0 20px;
+      background: var(--primary);
+      color: rgba(255,255,255,0.8);
+    }
+    .footer h4 { color: #fff; }
+    .footer__grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .footer__brand h4 {
+      font-size: 20px; margin-bottom: 10px;
+    }
+    .footer__brand p {
+      font-size: 13px; line-height: 1.6;
+      max-width: 320px; color: rgba(255,255,255,0.7);
+    }
+    .footer__col h5 {
+      font-size: 13px; margin-bottom: 14px;
+      color: #fff; text-transform: uppercase;
+      letter-spacing: 0.8px; font-family: 'Poppins', sans-serif; font-weight: 600;
+    }
+    .footer__col a {
+      display: block; color: rgba(255,255,255,0.7);
+      text-decoration: none; font-size: 13px;
+      padding: 3px 0; transition: color 0.2s;
+    }
+    .footer__col a:hover { color: #fff; }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 16px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer__copy { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .footer__links { display: flex; gap: 16px; }
+    .footer__links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none; font-size: 12px;
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: #fff; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .whyfree__inner { grid-template-columns: 1fr; gap: 36px; }
+      .footer__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 88px 0 40px; }
+      .hero__title { margin-bottom: 28px; }
+      .cta-btn { font-size: 14px; padding: 14px 32px; }
+      .comparison__grid { grid-template-columns: 1fr; }
+      .vcard { flex: 0 0 calc((100% - 14px) / 2) !important; }
+      .whyfree__img { max-width: 380px; margin: 0 auto; }
+      .footer__grid { grid-template-columns: 1fr; gap: 24px; }
+      .banner { padding: 32px 20px; }
+    }
+    @media (max-width: 480px) {
+      .vcard { flex: 0 0 calc((100% - 14px) / 2); }
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    .anim {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .anim.vis { opacity: 1; transform: translateY(0); }
+  </style>
+  <script src="https://fast.wistia.com/player.js" async></script>
+  <script src="https://fast.wistia.com/embed/arcsoo9xzn.js" async type="module"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <span class="header__logo-icon">A</span> AntFX
+      </a>
+      <nav class="header__nav">
+        <a href="#testimonios">Testimonios</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#whyfree">¿Por qué es gratis?</a>
+        <a href="#faq">FAQ</a>
+        <a href="#" class="nav-cta">Únete Ahora</a>
+      </nav>
+      <button class="header__burger" id="burger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#testimonios" onclick="closeNav()">Testimonios</a>
+    <a href="#resultados" onclick="closeNav()">Resultados</a>
+    <a href="#whyfree" onclick="closeNav()">¿Por qué es gratis?</a>
+    <a href="#faq" onclick="closeNav()">FAQ</a>
+    <a href="#" class="nav-cta" onclick="closeNav()">Únete Ahora</a>
+  </div>
+
+  <!-- BLOCK 1 — HERO -->
+  <section class="hero">
+    <!-- Decorative: ascending chart line -->
+    <div class="hero__deco-left">
+      <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 180 L40 160 L70 165 L100 140 L130 145 L160 110 L190 95 L220 60 L250 40 L270 15" stroke="#0b3c10" stroke-width="3" stroke-linecap="round"/>
+        <path d="M10 180 L40 160 L70 165 L100 140 L130 145 L160 110 L190 95 L220 60 L250 40 L270 15 L270 200 L10 200Z" fill="#0b3c10" opacity="0.15"/>
+        <circle cx="100" cy="140" r="4" fill="#0b3c10"/><circle cx="190" cy="95" r="4" fill="#0b3c10"/><circle cx="270" cy="15" r="4" fill="#0b3c10"/>
+      </svg>
+    </div>
+    <!-- Decorative: bar chart -->
+    <div class="hero__deco-right">
+      <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="120" width="24" height="60" rx="4" fill="#0b3c10" opacity="0.5"/>
+        <rect x="44" y="90" width="24" height="90" rx="4" fill="#0b3c10" opacity="0.6"/>
+        <rect x="78" y="100" width="24" height="80" rx="4" fill="#0b3c10" opacity="0.5"/>
+        <rect x="112" y="60" width="24" height="120" rx="4" fill="#0b3c10" opacity="0.7"/>
+        <rect x="146" y="70" width="24" height="110" rx="4" fill="#0b3c10" opacity="0.6"/>
+        <rect x="180" y="30" width="24" height="150" rx="4" fill="#0b3c10" opacity="0.8"/>
+        <rect x="214" y="10" width="24" height="170" rx="4" fill="#0b3c10" opacity="0.9"/>
+      </svg>
+    </div>
+    <!-- Decorative: dot grid -->
+    <div class="hero__deco-dots">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#0b3c10">
+          <circle cx="10" cy="10" r="2.5"/><circle cx="30" cy="10" r="2.5"/><circle cx="50" cy="10" r="2.5"/><circle cx="70" cy="10" r="2.5"/><circle cx="90" cy="10" r="2.5"/><circle cx="110" cy="10" r="2.5"/>
+          <circle cx="10" cy="30" r="2.5"/><circle cx="30" cy="30" r="2.5"/><circle cx="50" cy="30" r="2.5"/><circle cx="70" cy="30" r="2.5"/><circle cx="90" cy="30" r="2.5"/><circle cx="110" cy="30" r="2.5"/>
+          <circle cx="10" cy="50" r="2.5"/><circle cx="30" cy="50" r="2.5"/><circle cx="50" cy="50" r="2.5"/><circle cx="70" cy="50" r="2.5"/><circle cx="90" cy="50" r="2.5"/><circle cx="110" cy="50" r="2.5"/>
+          <circle cx="10" cy="70" r="2.5"/><circle cx="30" cy="70" r="2.5"/><circle cx="50" cy="70" r="2.5"/><circle cx="70" cy="70" r="2.5"/><circle cx="90" cy="70" r="2.5"/><circle cx="110" cy="70" r="2.5"/>
+          <circle cx="10" cy="90" r="2.5"/><circle cx="30" cy="90" r="2.5"/><circle cx="50" cy="90" r="2.5"/><circle cx="70" cy="90" r="2.5"/><circle cx="90" cy="90" r="2.5"/><circle cx="110" cy="90" r="2.5"/>
+          <circle cx="10" cy="110" r="2.5"/><circle cx="30" cy="110" r="2.5"/><circle cx="50" cy="110" r="2.5"/><circle cx="70" cy="110" r="2.5"/><circle cx="90" cy="110" r="2.5"/><circle cx="110" cy="110" r="2.5"/>
+        </g>
+      </svg>
+    </div>
+    <!-- Decorative: candlestick chart -->
+    <div class="hero__deco-candles">
+      <svg viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="20" x2="20" y2="120" stroke="#0b3c10" stroke-width="1.5"/>
+        <rect x="14" y="50" width="12" height="40" rx="2" fill="#0b3c10" opacity="0.6"/>
+        <line x1="50" y1="30" x2="50" y2="110" stroke="#0b3c10" stroke-width="1.5"/>
+        <rect x="44" y="45" width="12" height="35" rx="2" fill="#0b3c10" opacity="0.8"/>
+        <line x1="80" y1="10" x2="80" y2="100" stroke="#0b3c10" stroke-width="1.5"/>
+        <rect x="74" y="30" width="12" height="45" rx="2" fill="#0b3c10" opacity="0.5"/>
+        <line x1="110" y1="25" x2="110" y2="115" stroke="#0b3c10" stroke-width="1.5"/>
+        <rect x="104" y="40" width="12" height="50" rx="2" fill="#0b3c10" opacity="0.7"/>
+        <line x1="140" y1="5" x2="140" y2="90" stroke="#0b3c10" stroke-width="1.5"/>
+        <rect x="134" y="20" width="12" height="40" rx="2" fill="#0b3c10" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="container">
+      <h1 class="hero__title anim">
+        &#128176; <span>COPIA MIS IDEAS DE TRADING GRATIS</span><br>EN SOLO TRES SENCILLOS CLICS &#128176;
+      </h1>
+      <div class="hero__video-wrap anim">
+        <wistia-player media-id="arcsoo9xzn" aspect="1.7777777777777777" player-color="#0b3c10" playbar-control="true" fullscreen-control="true" volume-control="true" small-play-button="true" play-pause-notifier="false"></wistia-player>
+      </div>
+      <a href="#" class="cta-btn anim">ÚNETE AHORA</a>
+    </div>
+  </section>
+
+  <!-- BLOCK 2 — VIDEO TESTIMONIALS -->
+  <section class="testimonials" id="testimonios">
+    <div class="container">
+      <div class="banner anim">
+        <div class="banner__inner">
+          <div class="banner__badge">
+            <span class="banner__badge-dot"></span>
+            Comunidad activa ahora
+          </div>
+          <h3>ÚNETE A MI GRUPO DE<br>TRADING GRATUITO</h3>
+          <div class="banner__stats">
+            <div class="banner__stat">
+              <span class="banner__stat-num">2.000+</span>
+              <span class="banner__stat-label">Miembros</span>
+            </div>
+            <div class="banner__stat">
+              <span class="banner__stat-num">100%</span>
+              <span class="banner__stat-label">Gratis</span>
+            </div>
+            <div class="banner__stat">
+              <span class="banner__stat-num">L-V</span>
+              <span class="banner__stat-label">Operaciones</span>
+            </div>
+          </div>
+          <p>¿Te gustaría copiar mis operaciones cada día y ganar cuando yo gano? Más de 2.000 miembros de todo el mundo replican mis operaciones de lunes a viernes, mientras mi equipo y yo operamos en los mercados financieros.</p>
+          <a href="#" class="cta-btn">ÚNETE AHORA</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 3 — COMPARISON -->
+  <section class="comparison">
+    <div class="comparison__deco">
+      <svg viewBox="0 0 300 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 220 L60 180 L100 190 L140 140 L180 120 L220 80 L260 30 L280 10" stroke="#0b3c10" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="8 6"/>
+        <circle cx="140" cy="140" r="5" fill="#0b3c10" opacity="0.3"/><circle cx="220" cy="80" r="5" fill="#0b3c10" opacity="0.3"/><circle cx="280" cy="10" r="5" fill="#0b3c10" opacity="0.4"/>
+        <path d="M20 200 Q80 170, 140 180 T260 120" stroke="#0b3c10" stroke-width="1.5" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="comparison__grid">
+        <div class="comp-card comp-card--bad anim">
+          <div class="comp-card__header">
+            <div class="comp-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <h3>¿Operas por tu cuenta?</h3>
+          </div>
+          <div class="comp-card__body">
+            <ul>
+              <li><span class="li-icon">✕</span>Se necesitan más de 40 horas a la semana en el mercado</li>
+              <li><span class="li-icon">✕</span>Hace falta varios años de experiencia antes de ser rentable</li>
+              <li><span class="li-icon">✕</span>Consume mucho tiempo y no garantiza resultados</li>
+              <li><span class="li-icon">✕</span>Es posible gastar miles de euros antes de obtener ganancia</li>
+              <li><span class="li-icon">✕</span>Se requiere configurar el trading y análisis detallado</li>
+            </ul>
+          </div>
+        </div>
+        <div class="comp-card comp-card--good anim">
+          <div class="comp-card__header">
+            <div class="comp-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 13 10 17 18 7"/></svg>
+            </div>
+            <h3>¿Copiar lo que hago?</h3>
+          </div>
+          <div class="comp-card__body">
+            <ul>
+              <li><span class="li-icon">✓</span>Copia, pega y gana con mis operaciones gratis</li>
+              <li><span class="li-icon">✓</span>No se necesita experiencia previa</li>
+              <li><span class="li-icon">✓</span>Solo requiere entre 15 y 20 minutos al día</li>
+              <li><span class="li-icon">✓</span>Conviértete en experto por tu cuenta en pocas semanas</li>
+              <li><span class="li-icon">✓</span>Un teléfono o computadora es todo lo que necesitas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 4 — REVIEWS + TRADERS -->
+  <section class="results" id="resultados">
+    <div class="container">
+      <h2 class="section-title anim">RESULTADOS DE LOS MIEMBROS DE LA COMUNIDAD</h2>
+      <p class="results__sub anim">Conoce a algunos integrantes de tu nueva red</p>
+
+      <div class="slider-wrap anim">
+        <button class="slider-btn slider-btn--prev" id="sliderPrev" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="slider-track" id="sliderTrack">
+          <div class="rshot"><img src="assets/reviews/review_1.jpg" alt="Reseña de Edu" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_2.jpg" alt="Reseña de Enrique" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_3.jpg" alt="Reseña de Rose" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_4.jpg" alt="Reseña de Jossue" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_5.jpg" alt="Reseña de Manuel" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_6.jpg" alt="Reseña de Juan Carlos" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_7.jpg" alt="Reseña de Ricardo" loading="lazy"></div>
+          <div class="rshot"><img src="assets/reviews/review_8.jpg" alt="Reseña de Carlos" loading="lazy"></div>
+        </div>
+        <button class="slider-btn slider-btn--next" id="sliderNext" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BLOCK 5 — WHY FREE -->
+  <section class="whyfree" id="whyfree">
+    <div class="whyfree__deco">
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="140" width="18" height="30" rx="3" fill="#0b3c10" opacity="0.4"/>
+        <rect x="38" y="110" width="18" height="60" rx="3" fill="#0b3c10" opacity="0.5"/>
+        <rect x="66" y="120" width="18" height="50" rx="3" fill="#0b3c10" opacity="0.4"/>
+        <rect x="94" y="80" width="18" height="90" rx="3" fill="#0b3c10" opacity="0.6"/>
+        <rect x="122" y="60" width="18" height="110" rx="3" fill="#0b3c10" opacity="0.5"/>
+        <rect x="150" y="30" width="18" height="140" rx="3" fill="#0b3c10" opacity="0.7"/>
+        <rect x="178" y="10" width="18" height="160" rx="3" fill="#0b3c10" opacity="0.8"/>
+        <path d="M19 135 L47 105 L75 115 L103 75 L131 55 L159 25 L187 5" stroke="#0b3c10" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="whyfree__inner">
+        <div class="whyfree__text anim">
+          <h2>¿Por qué es gratis?</h2>
+          <p>Mi objetivo es ayudar al mayor número posible de personas a alcanzar la libertad financiera a través del trading diario o, al menos, a generar ingresos adicionales.</p>
+          <p>Creo que todos deberían poder vivir bajo sus propios términos y tener control sobre sus finanzas y su libertad.</p>
+          <p>Muchos desean trabajar cuando y desde donde quieran, y el trading diario puede acercarte a ese objetivo.</p>
+          <p>He encontrado una forma de hacerlo de manera gratuita. Colaboro con una de las plataformas de trading más grandes y premiadas del mundo. Mientras todos utilicemos esta plataforma para operar, el 100% de mis servicios es completamente gratis.</p>
+          <p>El único requisito es contar con algo de capital para operar; yo te ayudaré en cada paso.</p>
+        </div>
+        <div class="whyfree__img anim">
+          <img src="assets/antonio.jpg" alt="Antonio — Trader & Fundador de AntFX">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 6 — FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq__deco">
+      <svg viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 170 L50 140 L90 150 L130 100 L170 80 L210 40 L250 10" stroke="#0b3c10" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 170 L50 140 L90 150 L130 100 L170 80 L210 40 L250 10 L250 200 L10 200Z" fill="#0b3c10" opacity="0.1"/>
+        <g fill="#0b3c10" opacity="0.3">
+          <circle cx="50" cy="140" r="3"/><circle cx="130" cy="100" r="3"/><circle cx="210" cy="40" r="3"/>
+        </g>
+        <!-- Grid lines -->
+        <line x1="0" y1="50" x2="260" y2="50" stroke="#0b3c10" stroke-width="0.5" opacity="0.15"/>
+        <line x1="0" y1="100" x2="260" y2="100" stroke="#0b3c10" stroke-width="0.5" opacity="0.15"/>
+        <line x1="0" y1="150" x2="260" y2="150" stroke="#0b3c10" stroke-width="0.5" opacity="0.15"/>
+      </svg>
+    </div>
+    <div class="container">
+      <h2 class="section-title anim">PREGUNTAS FRECUENTES</h2>
+      <div style="height:24px"></div>
+      <div class="faq__list">
+        <div class="faq__item anim">
+          <button class="faq__q">¿Qué pasa si no sé nada sobre trading?<span class="faq__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+          <div class="faq__a"><div class="faq__a-inner">No te preocupes, no necesitas experiencia para comenzar con nosotros. Hemos hecho todo para que puedas copiar y replicar nuestras operaciones en vivo y así obtener ganancias desde el primer día, incluso sin experiencia previa. Así que no te preocupes, nosotros nos encargamos de todo por ti.<br><br>El 95% de nuestros miembros nunca había operado antes de unirse.</div></div>
+        </div>
+        <div class="faq__item anim">
+          <button class="faq__q">¿Por qué es gratis?<span class="faq__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+          <div class="faq__a"><div class="faq__a-inner">Es importante para mí aclarar que unirse a mi equipo es 100% gratuito. Mi patrocinador nos paga para que tú no tengas que hacerlo.<br><br>Trabajo con una de las plataformas de trading más reconocidas y premiadas del mundo, que patrocina mi servicio y cubre el coste de tu membresía. Mientras utilices su plataforma, podemos ofrecer nuestro servicio completamente gratis a todos nuestros miembros. Es una situación en la que todos ganamos.</div></div>
+        </div>
+        <div class="faq__item anim">
+          <button class="faq__q">¿Cómo empezar y qué necesitas?<span class="faq__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+          <div class="faq__a"><div class="faq__a-inner">Pulsa el botón "ÚNETE AHORA" que verás en varios lugares del sitio web. Después te pondrás en contacto conmigo y con mi equipo, y te guiaremos paso a paso para que empieces. Empezar no te llevará más de 10 minutos, y luego solo necesitarás entre 15 y 20 minutos al día.<br><br>Todo es 100% gratuito y lo único que necesitas es dinero para operar.</div></div>
+        </div>
+        <div class="faq__item anim">
+          <button class="faq__q">¿Antonio se gana la vida con el trading?<span class="faq__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+          <div class="faq__a"><div class="faq__a-inner">Sí, lo hago. Todo se basa en mis propias operaciones y las de mi equipo.<br><br>El 99% de los "traders" en realidad son promotores, no traders activos. Si alguien no analiza operaciones todos los días, no es realmente un trader, y es mejor mantenerse alejado de esas comunidades. Desde el lanzamiento de AntFX, nuestro enfoque ha sido copiado por miles de personas; ten cuidado con quienes venden promesas sin un historial comprobado como el nuestro.</div></div>
+        </div>
+        <div class="faq__item anim">
+          <button class="faq__q">¿Qué pasa si quiero aprender a operar por mi cuenta?<span class="faq__icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+          <div class="faq__a"><div class="faq__a-inner">No hay problema, al unirte a AntFX tendrás todas las herramientas y conocimientos necesarios para aprender a operar por ti mismo. Muchos de nuestros miembros comenzaron copiándonos al principio y ahora se han convertido en traders profesionales.</div></div>
+        </div>
+      </div>
+      <div class="faq__cta anim">
+        <a href="#" class="cta-btn">ÚNETE AHORA</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h4>AntFX Trading</h4>
+          <p>Nuestra misión es ayudar a personas de todo el mundo a alcanzar la libertad financiera a través del trading. Únete a nuestra comunidad gratuita y empieza hoy.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Enlaces Útiles</h5>
+          <a href="#">Unirse al Equipo</a>
+          <a href="#whyfree">¿Por qué es gratis?</a>
+          <a href="#faq">Preguntas Frecuentes</a>
+        </div>
+        <div class="footer__col">
+          <h5>Contacto</h5>
+          <a href="mailto:contacto@antfx.com">contacto@antfx.com</a>
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">Telegram</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 AntFX Trading | Todos los derechos reservados</span>
+        <div class="footer__links">
+          <a href="#">Política de Privacidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const hdr = document.getElementById('header');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 20));
+
+    // Mobile nav
+    const burger = document.getElementById('burger');
+    const mnav = document.getElementById('mobileNav');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      mnav.classList.toggle('open');
+      document.body.style.overflow = mnav.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeNav() {
+      burger.classList.remove('active');
+      mnav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Smooth scroll with offset
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id === '#') return;
+        const t = document.querySelector(id);
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 72, behavior: 'smooth' }); }
+      });
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq__q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const open = item.classList.contains('active');
+        document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('active'));
+        if (!open) item.classList.add('active');
+      });
+    });
+
+    // Scroll animation
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+    // Slider
+    const track = document.getElementById('sliderTrack');
+    const prevBtn = document.getElementById('sliderPrev');
+    const nextBtn = document.getElementById('sliderNext');
+    const card = track.querySelector('.rshot');
+    const scrollAmount = () => card.offsetWidth + 14; // card width + gap
+    prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+
+    // Stagger
+  </script>
+</body>
+</html>
