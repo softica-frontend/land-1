@@ -225,17 +225,19 @@
       aspect-ratio: 16/9;
       background: #f0f0f0;
     }
-    .hero__video-wrap wistia-player {
+    .hero__video-wrap video {
       width: 100%; height: 100%;
       display: block;
+      object-fit: cover;
     }
-    wistia-player[media-id='vcv6dzhh2a']:not(:defined) {
-      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/vcv6dzhh2a/swatch');
-      display: block; filter: blur(5px); padding-top: 56.25%;
+    video::-webkit-media-controls-fullscreen-button { display: block; }
+    video::--webkit-full-page-media { width: 100%; height: 100%; }
+    video:fullscreen,
+    video:-webkit-full-screen {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      background: #000;
     }
-    /* Hide Wistia branding */
-    .w-bottom-bar-upper .w-logo-control,
-    .wistia_badge { display: none !important; opacity: 0 !important; }
 
     /* ===== BLOCK 2 — VIDEO TESTIMONIALS ===== */
     .testimonials {
@@ -684,8 +686,6 @@
     }
     .anim.vis { opacity: 1; transform: translateY(0); }
   </style>
-  <script src="https://fast.wistia.com/player.js" async></script>
-  <script src="https://fast.wistia.com/embed/vcv6dzhh2a.js" async type="module"></script>
 </head>
 <body>
 
@@ -770,7 +770,7 @@
         🏆COPIA MIS IDEAS DE TRADING GRATIS EN SOLO TRES SENCILLOS CLICS🏆
       </h1>
       <div class="hero__video-wrap anim">
-        <wistia-player media-id="vcv6dzhh2a" aspect="1.7777777777777777" player-color="#0b3c10" playbar-control="true" fullscreen-control="true" volume-control="true" small-play-button="true" play-pause-notifier="false"></wistia-player>
+        <video src="assets/video.mp4" controls playsinline webkit-playsinline preload="metadata"></video>
       </div>
       <a href="https://antonio-fx.com/83Iicycy10?utm_source={{utm_source}}&site_source_name={{site_source_name}}&campaign_name={{campaign.name}}&adset_id={{adset.id}}&adset_name={{adset.name}}&ad_name={{ad.name}}&ad_id={{ad.id}}&placement={{placement}}&ad_campaign_id={{campaign.id}}" target="_blank" class="cta-btn anim" tracker>ÚNETE AHORA</a>
     </div>
