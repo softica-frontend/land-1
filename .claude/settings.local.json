@@ -13,7 +13,8 @@
       "Bash(ffmpeg -encoders)",
       "Bash(ffmpeg -i \"/c/Users/sasny/OneDrive/Рабочий стол/1блок.mov\" -c:v h264_nvenc -preset p7 -cq 18 -c:a aac -b:a 128k -movflags +faststart \"/c/IT/commercial/land-1/assets/hero-video.mp4\" -y)",
       "Bash(ffmpeg -i \"/c/Users/sasny/OneDrive/Рабочий стол/1блок.mov\" -c:v h264_nvenc -preset p7 -cq 28 -maxrate 1500k -bufsize 3000k -vf \"scale=1280:720\" -c:a aac -b:a 96k -movflags +faststart \"/c/IT/commercial/land-1/assets/hero-video-web.mp4\" -y)",
-      "WebFetch(domain:docs.wistia.com)"
+      "WebFetch(domain:docs.wistia.com)",
+      "Bash(ffmpeg:*)"
     ]
   }
 }
